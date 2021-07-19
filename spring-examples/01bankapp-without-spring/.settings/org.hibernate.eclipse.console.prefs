@@ -1,0 +1,3 @@
+default.configuration=01bankapp-without-spring
+eclipse.preferences.version=1
+hibernate3.enabled=true

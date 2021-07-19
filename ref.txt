@@ -1,0 +1,129 @@
+Week1 - 
+    - Core Java - oops, collections, exceptions, threading, io
+    - JDBC 
+    - JPA 
+    - Servlet
+    - Spring Core 
+    - Spring MVC 
+    - Spring Data JPA 
+    - Spring Data REST 
+    - Spring Boot 
+
+Week2 
+    - Spring Security 
+    - Microservices 
+    - AWS 
+week3
+    - Misc 
+
+Week4 
+    - HTML, CSS, JS, Typescript 
+    - Angular 
+
+language                    library                     framework 
+
+Java                                                    spring 
+C#                                                      .net framework 
+javascript                  react                       angular
+Python                                                  django                                
+
+
+
+Java7, 8, 9, 15...
+
+Programming language 
+
+Platform - runtime environment 
+
+Standard libraries 
+
+
+
+JDBC API
+-----------
+    - Specification / set of interfaces which defines how to access a database 
+
+
+    - JDBC Drivers 
+
+    - java.sql and javax.sql packages 
+
+
+    JavaApplication ---> JDBC API -----> JDBC Driver -----> database 
+
+
+    JDBC API - Appication to JDBC manager Connection 
+    JDBC Driver API - JDBC Manager -- Driver Connection
+
+
+
+        Class.forName("driverclass")
+
+
+        DriverManager 
+            - getConnection()
+            - getDrivers()
+
+
+
+
+    JDBC 
+
+            - load the drivers 
+            - establish the connection 
+
+                 Connection conection =    DriverManager.getConnection("","","");
+
+            - create Statement object 
+
+                - Statement 
+                      Statement stmt =   connection.createStatement()
+
+                        int result = stmt.executeUpdate("sqlcommand")       //insert/udpate/delete
+
+                         int result = stmt.executeUpdate("INSERT INTO employee values('"+empname+"', '"+city+"', 1000.00)") 
+
+                        ResultSet rs =  stmt.executeQuery("sqlcommand")
+
+                        boolean result =  stmt.execute("sqlcommand")
+
+                    - the sqlcommand is compiled everytime at db side
+                    - slower if consecutive execution of same query 
+                    - statement object can be only used to execute "string based" sql queries 
+
+                    -** Statement object is suitable for CREATE, Alter, Drop tables 
+                            -- good for DDL Queries 
+
+                    -** statement object can't be used for storing & retrieving binary data i.e. arrays, files etc. 
+                    -** with statement object, it is "vulnerable to SQL Injections" 
+
+                        string ename = "---"
+                        String query = "INSERT INTO employees (id, name) values(1, '"+ename+"')"
+
+
+                - PreparedStatement 
+                    - PS  object can be only used to execute "parameterized" sql queries 
+
+                     String query = "INSERT INTO employees (id, name) values(?,?)"; 
+
+                     PreparedStatement ps = connection.prepareStatement(query)
+
+                --** it has methods to bind various object types 
+                        ps.setXXXXX(placeholderindex, value)
+                --** it protects against "SQL Injections"
+                --** uses pre-compilations 
+                --** speeds up the communication between database and jvm 
+                --** PS provides "batch" execution during single db connection 
+                --** PS is good for DML queries 
+
+
+                - CallableStatement 
+
+
+
+
+            - Execute the statement / db commands 
+            - close connection 
+
+
+            - Batch Processing in JDBC 
