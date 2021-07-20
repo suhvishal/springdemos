@@ -127,3 +127,133 @@ JDBC API
 
 
             - Batch Processing in JDBC 
+
+
+JDBC 
+
+
+Object Persistence 
+    - state of an object can be stored in data store, and re-created at a later point of time 
+    - you can persist the data in files/relational databases 
+
+
+
+
+ORM - object relation mapping tools 
+    - Map the Object Model to Relational model 
+    - ORM is a technique to map the representation of data from java objects to relational database tables (and vise versa) 
+    - this mapping is done either using xml or annotations 
+    - hides the complexity to deal with sql and low level jdbc api 
+
+
+    Hibernate                           Hibernate JPA 
+
+    Ibatis                              MyBatis
+
+    TopLink                             EclipseLink
+
+
+Hibernate xml configuration
+------------------------------
+    <hibernate-configuration>
+        <session-factory>
+                //..db configuration
+        </session-factory>
+    </hibernate-configuration>
+
+
+JPA - Java Persistence API 
+---------------------------------
+    - standard specification for object mapping 
+
+ 
+JPA Providers 
+---------------
+    - implementation of jpa 
+
+    - Hibernate JPA
+    - MyBatis
+    - EclipseLink
+
+
+Entity 
+------------
+    - Entity represents the data to be persisted, queried, or the data to be manipulated 
+             - Java Object --> just instance of a class 
+    - Entities are objects which are persisted / managed by the EntityManager 
+
+
+    class Book {
+
+        private long id; 
+        private String title; 
+
+        //constructor 
+        //getter/setter 
+        
+    }
+
+EntityManager
+---------------
+    - object which manages PersistenceContext 
+    - EntityManager object is used to persist the Entities 
+
+                                                  Persistence 
+                                                        |
+        persistence.xml                             (create)
+            |                                            |
+        PersistentUnit                         EntityManagerFactory
+            |                                            |
+         (Configuredby)                              (creates)
+            |                                           |
+         PersistenceContext<------- (manages)------"EntityManager"
+
+
+PersistenceContext 
+
+
+PersistentUnit 
+    - a named configuration of a set of entities 
+
+   <persistence-unit name="jpademo1">
+
+	</persistence-unit>
+
+
+Default Mapping 
+
+
+CRUD operations on Entity 
+
+
+Transaction 
+
+
+Custom Mapping 
+
+
+Relationships 
+
+
+Cascade events 
+
+
+Fetching relationships 
+
+    - default fetch policy 
+    - custom fetch policy 
+
+
+Inheritance in jpa 
+    - inheritance strategies 
+
+quering the entities
+    - JPQL
+    - custom jpql queries - named queries / dynamic queries 
+    - native sql queries 
+    - criteria api 
+    - querydsl
+
+
+
+Spring Data JPA 
