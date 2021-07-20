@@ -14,13 +14,22 @@ public class Test1 {
 		EntityManager manager = factory.createEntityManager();
 		
 		
-		Employee emp1 = new Employee(101, "Yashwant", "Mumbai", 1000.00);
-		EntityTransaction tx = manager.getTransaction();
+		//Department dept = manager.find(Department.class, 103);
+		manager.getTransaction().begin();
 		
+//		manager.persist(d1);
+//		System.out.println(d1);
+
 		
-//		tx.begin();
+//		Employee emp1 = new Employee(4, "Yashwant", "Chennai", 2000.00, dept);
 //		manager.persist(emp1);
-//		tx.commit();
+		
+	   Employee emp =  manager.find(Employee.class, 1);
+	   manager.remove(emp);
+		
+		
+		
+		manager.getTransaction().commit();
 
 	}
 

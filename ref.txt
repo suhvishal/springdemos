@@ -182,9 +182,16 @@ Entity
              - Java Object --> just instance of a class 
     - Entities are objects which are persisted / managed by the EntityManager 
 
+    - must have no-arg constructor 
+    - must have identifier column marked with @Id annotation
+    - can be concrete or abstract class 
+    - enums or interfaces cannot be entities 
+    - all attributes of the entity class become persistent by default 
 
+    @Entity
     class Book {
 
+        @Id
         private long id; 
         private String title; 
 
@@ -222,6 +229,26 @@ PersistentUnit
 
 Default Mapping 
 
+    - by default the table name is similar to the entity class name 
+    - column names in the table will be similar to attribute names 
+    - jdbc rules applied for mapping java primitives to relational data types 
+            - string    = varchar(255)
+            - long      = bigint 
+            - boolean   = smallint 
+            - enums     = integer
+
+Custom Mapping 
+
+    - @Table(name="new_table_name", schema="xxxxxx")
+    - @Column(name="column_name", length="300", nullable=true)
+    - @Temporal(TemporalType.DATE)
+
+    - @GeneratedValue(strategy="xxxx")
+        - GenerationType.SEQUENSE 
+        - GenerationType.IDENTITY 
+        - GenerationType.TABLE 
+        - GenerationType.AUTO
+
 
 CRUD operations on Entity 
 
@@ -229,10 +256,79 @@ CRUD operations on Entity
 Transaction 
 
 
-Custom Mapping 
-
-
 Relationships 
+
+    Department      <----has-A------> Employee
+
+    class Department {                      class Employee {
+        int deptId;                                 /...
+        String deptName;                            /....
+                                                    @OneToOne
+        ....                                        Department dept;
+        @OneToMany
+        Set<Employee> employees;
+    }                                       }
+
+    deptTable
+    -------------
+    deptId          deptName  
+    1               xxxxx   
+
+    department_employee
+    ---------------------
+    department_deptId           employee_empId
+    1                           1
+    1                           2
+    1                           3
+   
+
+    empTable                        //joinColumn
+    ---------
+    empId           empName         department_deptId
+    1               xxx             1
+    2               xxx             1
+    3               xxx             2
+    5               xxx             1
+
+
+
+
+
+    Book           <----->       Author 
+
+
+
+    Direction 
+
+    Cardinality 
+
+
+Default mapping strategy 
+------------------------------
+
+    @OneToOne           ---> Join column 
+    @ManyToOne          ---> Join Column
+
+    @OneToMany          ---> Join Table
+    @ManyToMany         ---> Join Table 
+
+
+    @Entity                                     @Entity 
+    class Book {                                class Author {
+        //..                                        //..
+        //..                                        //...
+        @OneToMany                                  //...
+        List<Author> authors;                       
+    }                                           }
+
+
+        book -table                         author-table                book_author-table 
+        -------
+
+
+
+    Department  ---------> Employee
+
 
 
 Cascade events 
@@ -241,6 +337,11 @@ Cascade events
 Fetching relationships 
 
     - default fetch policy 
+            @OneToOne       -- Eager 
+            @OneToMany      -- Eager 
+
+            @ManyToOne      - Lazy
+            @ManyToMany     - Lazy 
     - custom fetch policy 
 
 
@@ -253,7 +354,5 @@ quering the entities
     - native sql queries 
     - criteria api 
     - querydsl
-
-
 
 Spring Data JPA 

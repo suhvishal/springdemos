@@ -1,9 +1,15 @@
 package demo1;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "emp_table")
@@ -18,9 +24,22 @@ public class Employee {
 	private String city;
 	private double salary;
 	
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.LAZY)
+	private Department department;
+	
 	public Employee() {
 		super();
 	}
+
+	
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", eName=" + eName + ", city=" + city + ", salary=" + salary
+				+ ", department=" + department + "]";
+	}
+
+
+
 
 	public Employee(int empId, String eName, String city, double salary) {
 		super();
@@ -28,6 +47,23 @@ public class Employee {
 		this.eName = eName;
 		this.city = city;
 		this.salary = salary;
+	}
+
+	public Employee(int empId, String eName, String city, double salary, Department department) {
+		super();
+		this.empId = empId;
+		this.eName = eName;
+		this.city = city;
+		this.salary = salary;
+		this.department = department;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public int getEmpId() {
