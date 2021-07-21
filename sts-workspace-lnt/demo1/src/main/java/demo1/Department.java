@@ -19,10 +19,6 @@ public class Department {
 		super();
 	}
 	
-	
-
-	
-
 
 	public Department(int deptId, String deptName) {
 		super();

@@ -331,6 +331,53 @@ Default mapping strategy
 
 
 
+
+    @Entity                             @Entity 
+    class Book {                        class Author {
+        //..                                //..
+
+        @OneToOne                           @OneToMany
+        Author author;                      List<Book> books;
+
+    }                                   }
+
+
+    Book        1--->1      Author 
+
+    Author      1--->*      Book
+
+
+
+    book-table      
+    --------------
+    bookid          title       desc        author_id
+
+
+    author-table 
+    ----------------
+
+
+
+    author_book 
+    -------------
+    author_id       book_id 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Cascade events 
 
 

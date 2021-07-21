@@ -13,14 +13,9 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "emp_table")
-public class Employee {
+public class Employee extends Person {
 	
-	@Id
-	@Column(name = "id")
-	private int empId;
-	
-	@Column(name = "emp_name", length = 50)
-	private String eName;
+	//inherited attributes from person
 	private String city;
 	private double salary;
 	
@@ -29,57 +24,6 @@ public class Employee {
 	
 	public Employee() {
 		super();
-	}
-
-	
-	@Override
-	public String toString() {
-		return "Employee [empId=" + empId + ", eName=" + eName + ", city=" + city + ", salary=" + salary
-				+ ", department=" + department + "]";
-	}
-
-
-
-
-	public Employee(int empId, String eName, String city, double salary) {
-		super();
-		this.empId = empId;
-		this.eName = eName;
-		this.city = city;
-		this.salary = salary;
-	}
-
-	public Employee(int empId, String eName, String city, double salary, Department department) {
-		super();
-		this.empId = empId;
-		this.eName = eName;
-		this.city = city;
-		this.salary = salary;
-		this.department = department;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-
-	public int getEmpId() {
-		return empId;
-	}
-
-	public void setEmpId(int empId) {
-		this.empId = empId;
-	}
-
-	public String geteName() {
-		return eName;
-	}
-
-	public void seteName(String eName) {
-		this.eName = eName;
 	}
 
 	public String getCity() {
@@ -96,7 +40,23 @@ public class Employee {
 
 	public void setSalary(double salary) {
 		this.salary = salary;
-	} 
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	
+	
+	
+
+
+
+
 	
 	
 
