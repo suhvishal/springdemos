@@ -364,20 +364,6 @@ Default mapping strategy
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Cascade events 
 
 
@@ -393,13 +379,190 @@ Fetching relationships
 
 
 Inheritance in jpa 
-    - inheritance strategies 
+
+    @Entity
+    Class Product {
+        int id;
+        String title;
+        String description;
+        double unitCost;
+    }
+
+    @Entity                                         @Entity 
+    class Book extend Product {                     class ElectronicProduct extends Product {
+
+            String isbn;                                    //type
+            int noOfPages;                                  //..
+            Date publishedDate;                             //..
+
+    }                                               }
+
+    - JPA inheritance strategies 
+
+                - single-table-per-class 
+                        - all the entities in the hierarchy will be mapped to a single table 
+                        - it will the sum of all the attributes in the entire entity hierarchy
+                - joined-subclass 
+                - table-per-concrete-class
+
+
 
 quering the entities
     - JPQL
+        - SQL --- SELECT *                                  SELECT i 
+                  FROM item                                 FROM Item i
+                  WHERE unitCost > 100.00                   WHERE i.unitCost > 100
+                  ORDER BY title;                           ORDER BY i.title 
+
+                  SELECT title, count(*) 
+                  FROM item 
+                    JOIN author 
+                    on item.id = author.bookid 
+                  GROUP BY item.title
+
+
+
+                SELECT  <select-clause>
+                FROM    <from-clause>
+                [WHERE]
+                [ORDER BY]
+                [GROUP BY]
+                [HAVING]
+
+
+                FUNCTIONS   : AVG, COUNT, MAX, MIN, SUM 
+                operators   : = < > <= >= <> NOT BETWEEN, NOT IN, NOT LIKE , LIKE, IS, NOT IS, EMPTY, NOT EMPTY, 
+
+
+            EntityManager   
+                - Query createQuery(String JPQLStatement)
+                - TypedQuery createQuery(String jpql, Class class)
+                - Query createNamedQuery(String jpql)
+                - TypedQuery createNamedQuery(String jpql, Class class)
+
+
+            Query 
+                - getResultList()
+                - getSingleResult()
+                - setMaxResults()
+                - setFirstResult() 
+                - setParameter() 
+
+
     - custom jpql queries - named queries / dynamic queries 
+
+
     - native sql queries 
     - criteria api 
     - querydsl
 
+
+JPA     - specification 
+
+JPA Providers 
+    - Hibernate, EclipseLink, MyBatics, OpenJpa 
+    - implementation of JPA Specification 
+
 Spring Data JPA 
+    - abstraction over JPA Provider 
+    - sophisticated support to build repositories 
+    - pagination support, dynamic query execution, custom query methods 
+    - 
+
+
+Spring Data REST 
+
+
+IOC 
+-----------
+    - IOC is a  principle in software programmingm, which delegates the responsibility of creating objects to the "Container"
+        - decoupling the execution of the task 
+
+    - Container 
+        - container is a class which is responsible to create objects as per the "bean definition"
+        - BeanFactory 
+        - ApplicationContext 
+            - ClassPathXmlApplicationContext 
+            - FileSystemXmlApplicationContext 
+            - AnnotationConfigApplicationContext 
+            - XmlWebApplicationContext
+            - AnnotationConfigWebApplicationContext 
+
+    - "Container" which create objects
+
+    - Spring Bean 
+        - object which is managed by the container, instantiated by a container, 
+
+    - "Spring Bean" Definition
+        - xml configuration 
+           
+            <beans>
+                <bean id="" name="" class=""  scope=""/>
+            </beans>
+
+        - java configuration 
+
+                @Configuration
+                class MyConfigation {
+
+                    @Bean
+                    public Employee createEmployee(){
+                        return new Employee();
+                    }
+                }
+
+        - annotations
+            - @Component
+
+
+
+
+    - "Dependency Injection" 
+
+
+    - constructor injection 
+
+                -   <bean id="employee" class="com.demo.Employee">
+                            <constructor-arg>
+                                    <value>somevalue</value>
+                            </constructor-arg>
+                            <constructor-arg value="" />
+                    </bean>
+
+                        - value 
+                        - ref 
+                        - list 
+                        - set 
+                        - array 
+                        - bean
+
+    - setter injection 
+        <property>
+                <value>1</value>
+        </property>
+        <property name="" value="" />
+
+    - scope 
+        - singleton 
+        - prototype 
+        - request 
+        - session 
+        - thread 
+
+
+
+        class Employee {
+
+            //...
+            //..
+
+
+            public Employee(int empid, string nm, ....){
+
+            }
+
+        }
+
+        <bean>
+                <constructor-arg name="" value="">
+        </bean>

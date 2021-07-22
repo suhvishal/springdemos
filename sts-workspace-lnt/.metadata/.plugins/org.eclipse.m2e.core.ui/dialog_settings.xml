@@ -83,6 +83,7 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="/Users/vishal/java-fullstack-lnt/spring-examples"/>
 			<item value="/Users/vishal/Downloads/java-persistence-api-21"/>
 		</list>
 		<list key="projectNameTemplate">

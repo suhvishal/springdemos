@@ -11,18 +11,33 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.way2learnonline.model.*;
 
 
 
+@Component
 public class JdbcTransactionRepositoryImpl implements TransactionRepository {
 	
+	@Autowired
 	private DataSource dataSource;	
 
 	public JdbcTransactionRepositoryImpl(DataSource dataSource) {
 		super();
 		this.dataSource = dataSource;
 	}
+
+	
+	
+	
+	public JdbcTransactionRepositoryImpl() {
+		super();
+	}
+
+
+
 
 	public Long addTransaction(TransactionDetail transactionDetail) throws SQLException {
 		String query="insert into TransactionDetail(accountnumber,transactiondate,amount,txtype) values(?,?,?,?) ";
