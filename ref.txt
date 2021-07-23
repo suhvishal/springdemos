@@ -566,3 +566,43 @@ IOC
         <bean>
                 <constructor-arg name="" value="">
         </bean>
+
+
+
+
+        1. define few beans based on the Dependencies you are going to download 
+            - mysql-connector.jar
+                - DataSource, TransactionManager, EntityManager   
+                - DataSourceInitializer
+                
+                    - xml configuration / java configuration / spring boot auto configuration
+
+            - spring-webmvc 
+                - DispatcherServlet, 
+            - spring-Security
+            - spring-xxxxxx 
+            - 3rd party jar/library/module 
+
+        2. define beans for objects defined in service layer, DAO layer , controller layer etc.     
+                  - xml configuration / java configuration / spring boot auto configuration
+
+
+
+        Repository<T, ID> 
+            |
+            |
+            |
+        CrudRepository<T,ID>
+            |
+            |--> <S extends T> save(Entity e)
+            |--> Optional<T> findById(Id id)
+            |--> Iterable<T> findAll()
+            |--> void deleteById(Id id)
+            |--> void deleteAll()
+            |--> long count()
+            |
+        PagingAndSortingRepository<T,ID>
+            |
+            |
+            |
+        JpaRepository<T, ID>

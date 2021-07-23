@@ -20,41 +20,57 @@ import com.way2learnonline.utils.CacheUtil;
 	private JdbcTemplate jdbcTemplate;
 	
 	
-	public List<Customer> getAllCustomers() throws Exception {		
+	public List<Customer> getAllCustomers() throws Exception {
 		
-		String methodName="getAllCustomers";
-		String key = this.getClass().getMethod(methodName).getReturnType().getName()
-					+"getAllCustomers";
-		Object returnValue=CacheUtil.cache.get(key);
-		
-		if(returnValue==null){
-			System.out.println("Cache Miss !!! Hitting the DB");
-			returnValue=jdbcTemplate.query("Select * from Customers", 
-										new BeanPropertyRowMapper<Customer>(Customer.class)) ;
-			CacheUtil.cache.put(key, returnValue);
-		}else{
-			System.out.println("Cache Hit !!! Returning From Cache");
-		}
+		Object returnValue=jdbcTemplate.query("Select * from Customers", 
+				new BeanPropertyRowMapper<Customer>(Customer.class)) ;
 		
 		return (List<Customer>) returnValue;
+		
+//		String methodName="getAllCustomers";
+//		
+//		//List<Customer>getAllCustomers
+//		String key = this.getClass().getMethod(methodName).getReturnType().getName()
+//					+"getAllCustomers";
+//		
+//		Object returnValue = CacheUtil.cache.get(key);
+//		
+//		if(returnValue==null){
+//			System.out.println("Cache Miss !!! Hitting the DB");
+//			returnValue=jdbcTemplate.query("Select * from Customers", 
+//										new BeanPropertyRowMapper<Customer>(Customer.class)) ;
+//			CacheUtil.cache.put(key, returnValue);
+//		}else{
+//			System.out.println("Cache Hit !!! Returning From Cache");
+//		}
+//		
+//		return (List<Customer>) returnValue;
 	}
 
 	public Customer getCustomerById(int customerId) throws Exception{
+		
+	 Object	returnValue=jdbcTemplate.queryForObject("Select * from Customers where customerId=?", new Object[]{customerId},
+				new BeanPropertyRowMapper<Customer>(Customer.class)) ;
+	 
+	 return (Customer) returnValue;
 
-		String methodName="getCustomerById";
-		String key = this.getClass().getMethod(methodName,int.class).getReturnType().getName()+"getCustomerById("+customerId+")";
-		Object returnValue=CacheUtil.cache.get(key);
-		
-		if(returnValue==null){
-			System.out.println("Cache Miss !!! Hitting the DB");
-			returnValue=jdbcTemplate.queryForObject("Select * from Customers where customerId=?", new Object[]{customerId},
-													new BeanPropertyRowMapper<Customer>(Customer.class)) ;
-			CacheUtil.cache.put(key, returnValue);
-		}else{
-			System.out.println("Cache Hit !!! Returning From Cache");
-		}
-		
-		return (Customer) returnValue;
+//		String methodName="getCustomerById";
+//		
+//		//CustomergetCustomerById1
+//		String key = this.getClass().getMethod(methodName,int.class).getReturnType().getName()+"getCustomerById("+customerId+")";
+//		
+//		Object returnValue=CacheUtil.cache.get(key);
+//		
+//		if(returnValue==null){
+//			System.out.println("Cache Miss !!! Hitting the DB");
+//			returnValue=jdbcTemplate.queryForObject("Select * from Customers where customerId=?", new Object[]{customerId},
+//													new BeanPropertyRowMapper<Customer>(Customer.class)) ;
+//			CacheUtil.cache.put(key, returnValue);
+//		}else{
+//			System.out.println("Cache Hit !!! Returning From Cache");
+//		}
+//		
+//		return (Customer) returnValue;
 		
 	}
 

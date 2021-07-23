@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 
 import com.way2learnonline.utils.CacheUtil;
 
-
+//caching logic and invoke appropriate method to trigger db connection if requried
 
  public class CachingInvocationHandler implements InvocationHandler {
 	

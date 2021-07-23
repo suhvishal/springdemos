@@ -10,3 +10,10 @@ import java.util.Map;
 	
 	}
 
+
+	//map = empty
+	
+
+	//key="getAllCustomers", value=list of employees
+	//key="getcustomerById1", value=customer1
+	

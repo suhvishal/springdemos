@@ -25,11 +25,14 @@ public class CustomerDaoTests {
 
 	@Test
 	public void testGetAllCustomers() throws Exception {
-		customerDao.getAllCustomers();
-		customerDao.getAllCustomers();
-		customerDao.getAllCustomers();
+//		customerDao.getAllCustomers();
+//		customerDao.getAllCustomers();
+//		customerDao.getAllCustomers();
 		List<Customer> customers=customerDao.getAllCustomers();
 		
+		customerDao.getCustomerById(1);
+		customerDao.getCustomerById(1);
+
 		assertNotNull(customers);
 		
 	}

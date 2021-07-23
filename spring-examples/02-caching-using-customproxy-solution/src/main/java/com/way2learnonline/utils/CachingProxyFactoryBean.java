@@ -8,7 +8,7 @@ import com.way2learnonline.common.CachingInvocationHandler;
 
 	 public class CachingProxyFactoryBean extends AbstractFactoryBean<Object> {	
 		
-		private Object target;
+		private Object target;			//customerDaoImple
 		
 		@Override
 		protected Object createInstance() throws Exception {	
@@ -22,7 +22,17 @@ import com.way2learnonline.common.CachingInvocationHandler;
 		public Class<?> getObjectType() {
 			
 			return this.getClass();
-		}		
+		}
+
+		public Object getTarget() {
+			return target;
+		}
+
+		public void setTarget(Object target) {
+			this.target = target;
+		}
+		
+		
 	
 	}
 
