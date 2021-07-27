@@ -28,6 +28,7 @@ public class AccountServiceImpl implements AccountService {
 
 	
 	//@Transactional(propagation=Propagation.REQUIRES_NEW)
+	@Transactional
 	public Long debit(int amount, Long accountNumber) throws SQLException {
 		
 			auditService.writeAuditLog("trying to debit "+amount+"  from  account with account number "+accountNumber);

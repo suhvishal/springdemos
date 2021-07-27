@@ -588,11 +588,11 @@ IOC
 
 
 
-        Repository<T, ID> 
+  interface Repository<T, ID> 
             |
             |
             |
-        CrudRepository<T,ID>
+   interface CrudRepository<T,ID>
             |
             |--> <S extends T> save(Entity e)
             |--> Optional<T> findById(Id id)
@@ -601,8 +601,87 @@ IOC
             |--> void deleteAll()
             |--> long count()
             |
-        PagingAndSortingRepository<T,ID>
+   interface PagingAndSortingRepository<T,ID>
+            |
+            |--> Page<T> findAll(Pageable pageable)
+            |--> Iterable<T> findAll(Sort sort)
+            |
+   interface JpaRepository<T, ID>
             |
             |
             |
-        JpaRepository<T, ID>
+            |
+
+
+
+    Pageable 
+    Page 
+    Sort 
+
+        - new Sort.Order(Direction.DESC, "name")
+        - Sort.by(Direction.DESC, "name")
+
+    Direction 
+    Order 
+
+
+    - Query Methods 
+    - QueryDSL
+
+
+
+
+
+
+        CrudRepository
+            |
+        ProductRepository
+
+
+
+
+            price >= x          findAllByPriceGreaterThan(price price)  or custom methods with @Query annotation
+            price <= x          ///xxx
+            price != x          //xxx
+            price == x 
+            ..
+            ..
+            ....
+            ..
+            ..
+
+
+Controller class 
+    - to handle the requests 
+
+
+@RestController                 @Controller 
+
+@ResponseBody 
+
+
+
+Employee 
+    - id, name, city, salary 
+
+    GET         : http://localhost:8080/employees 
+                    - return all the employees in json format as a response 
+
+    GET         : http://localhost:8080/employees/1
+                    - return an employee with given id 
+
+    POST        : http://localhost:8080/employees
+                    {
+                        name : "xxxx",              //required, min 5 letters
+                        city : "xxxx",              //required
+                        salary : xxxx               //required, only positive number 
+                    }
+    PUT         : http://localhost:8080/employees/17
+                    {
+                        name : "xxxx", 
+                        city : "xxxx", 
+                        salary : xxxx
+                    }
+
+    DELETE      : http://localhost:8080/employees/1
+                    - delete the given employee 
